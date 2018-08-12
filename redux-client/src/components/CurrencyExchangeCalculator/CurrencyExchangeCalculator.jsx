@@ -7,11 +7,11 @@ class CurrencyExchangeCalculator extends Component {
     render() {
         return (
             <div>
-                <CurrenciesSelect
+                <CurrenciesSelect class="currencyInput"
                     options={this.props.currencies}
                 />
-                <Input />
-                <Input disabled/>
+                <Input className="currencyInput"/>
+                <Input disabled className="currencyInput"/>
             </div>
         );
     }

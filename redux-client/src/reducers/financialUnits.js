@@ -17,11 +17,22 @@ function sumFinancialUnitsValues(financialUnitsPositions) {
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_FINANCIAL_UNITS_POSITIONS:
-            const finUnits = action.payload.data || [];
-            return {
-                financialUnitsPositions: finUnits,
-                calculatedValSumByFinUnit: sumFinancialUnitsValues(finUnits)
-            };
+            if(action.payload.data) {
+                const finUnits = action.payload.data.financialUnitsPositions || [];
+                const ratesByCurrencies = action.payload.data.ratesByCurrencies || {};
+
+                return {
+                    financialUnitsPositions: finUnits,
+                    ratesByCurrencies: ratesByCurrencies,
+                    calculatedValSumByFinUnit: sumFinancialUnitsValues(finUnits)
+                };
+            } else {
+                return {
+                    financialUnitsPositions: [],
+                    ratesByCurrencies: {},
+                    calculatedValSumByFinUnit: {}
+                }
+            }
     }
 
     return state;

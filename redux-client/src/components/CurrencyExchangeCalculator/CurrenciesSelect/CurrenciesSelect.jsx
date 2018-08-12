@@ -20,25 +20,30 @@ class CurrenciesSelect extends Component {
     }
 
     convertOptions() {
-        return this.props.options.map(option => {
-            return {
-                value: option.rate,
-                label: option.name
-            }
+        let options = [];
+        
+        Object.keys(this.props.options).forEach(key => {
+            options.push({
+                value: this.props.options[key],
+                label: key
+            });
         });
+
+        return options;
     }
 
     render() {
         
         return (
             <div>
+                {this.props.options &&
                 <Select 
                     value={this.state.selectedOption}
                     onChange={this.onSelectionChange}
                     options={
                         this.convertOptions()
                     }
-                />
+                />}
             </div>
         );
     }

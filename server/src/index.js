@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const axios = require("axios");
-const CURRENCY_API_URL = "http://www.apilayer.net/api/live?access_key=b7838ff45946ffbdc5cc35614fa69dfa";
+const CURRENCY_API_URL = "http://www.apilayer.net/api/live?access_key=7a95952736d51799de38c521e7dd2106";
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -264,7 +264,10 @@ async function getRatesByCurrencies() {
 
 app.get('/getFinancialUnitsPositions/', async (req, res) => {
     res.send(await getRatesByCurrencies().then(ratesByCurrencies => {
-        return getFinancialUnitsPositionsDTO(ratesByCurrencies);
+        return {
+            financialUnitsPositions: getFinancialUnitsPositionsDTO(ratesByCurrencies),
+            ratesByCurrencies: ratesByCurrencies
+        };
     }));
 })
 
